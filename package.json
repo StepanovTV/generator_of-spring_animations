@@ -1,0 +1,12 @@
+{
+  "name": "frame-baker",
+  "version": "2.4.0",
+  "description": "Spring Animation Generator with 2D Transformations - Генератор пружинных анимаций с 2D трансформациями",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8000"
+  },
+  "author": "Frame Baker Team",
+  "license": "ISC"
+}

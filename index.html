@@ -1,0 +1,263 @@
+<!DOCTYPE html> 
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>👨‍🍳 Animation Baker - генератор</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>👨‍🍳 Animation Baker 👨‍🍳</h1>
+        <p class="description">
+          Интегрированный генератор пружинных анимаций с настраиваемыми
+          параметрами. Создавайте CSS @keyframes и JavaScript keyframes в
+          реальном времени.
+        </p>
+      </div>
+
+      <div class="main-content">
+        <!-- Левая панель: Демо и управление -->
+        <div class="left-panel">
+
+          <div class="animation-stage">
+            <div class="body-container" id="animationDemo">
+              <div class="body-square">Spring</div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="btn" id="playBtn">▶ Запуск</button>
+            <button class="btn" id="resetBtn">🔄 Сброс</button>
+            <button class="btn generate" id="generateBtn">
+              🔧 Генерировать
+            </button>
+          </div>
+
+          <!-- Параметры анимации -->
+          <h4 style="margin-bottom: 15px">⚙️ Параметры анимации</h4>
+          <div class="parameter-grid">
+            <div class="parameter">
+              <label for="duration"
+                >Длительность анимации:
+                <span id="duration-value">800</span></label
+              >
+              <input
+                type="range"
+                id="duration"
+                value="800"
+                min="150"
+                max="3000"
+                step="50"
+              />
+              <div class="range-info">Диапазон: 150-3000ms</div>
+            </div>
+
+            <div class="parameter">
+              <label for="amplitudeThreshold"
+                >Порог остановки (% амплитуды):
+                <span id="amplitudeThreshold-value">0.2</span></label
+              >
+              <input
+                type="range"
+                id="amplitudeThreshold"
+                value="0.2"
+                min="0.1"
+                max="5"
+                step="0.05"
+              />
+              <div class="range-info">Диапазон: 0.1-5%</div>
+            </div>
+          </div>
+
+          <!-- Параметры пружины -->
+          <h4 style="margin-bottom: 15px; margin-top: 25px">🌀 Параметры пружины</h4>
+          <div class="parameter-grid">
+            <div class="parameter">
+              <label for="damping"
+                >Затухание пружины: <span id="damping-value">3</span></label
+              >
+              <input
+                type="range"
+                id="damping"
+                value="3"
+                min="0.5"
+                max="10"
+                step="0.1"
+              />
+              <div class="range-info">Диапазон: 0.5-10</div>
+            </div>
+
+            <div class="parameter">
+              <label for="frequency"
+                >Частота колебаний: <span id="frequency-value">20</span></label
+              >
+              <input type="range" id="frequency" value="20" min="5" max="50" />
+              <div class="range-info">Диапазон: 5-50</div>
+            </div>
+          </div>
+
+          <!-- Параметры эффектов -->
+          <h4 style="margin-bottom: 15px; margin-top: 25px">🎨 Параметры эффектов</h4>
+          <div class="parameter-grid">
+            <div class="parameter">
+              <label for="rotation"
+                >Множитель поворота: <span id="rotation-value">20</span></label
+              >
+              <input type="range" id="rotation" value="20" min="5" max="90" />
+              <div class="range-info">Диапазон: 5-90°</div>
+            </div>
+
+            <div class="parameter">
+              <label for="translation"
+                >Множитель смещения:
+                <span id="translation-value">3</span></label
+              >
+              <input type="range" id="translation" value="3" min="1" max="10" />
+              <div class="range-info">Диапазон: 1-10px</div>
+            </div>
+
+            <div class="parameter">
+              <label for="scale"
+                >Множитель масштаба:
+                <span id="scale-value">0.2</span></label
+              >
+              <input type="range" id="scale" value="0.2" min="0.05" max="0.5" step="0.05" />
+              <div class="range-info">Диапазон: 0.05-0.5</div>
+            </div>
+
+            <div class="parameter">
+              <label for="opacity"
+                >Множитель прозрачности:
+                <span id="opacity-value">0.3</span></label
+              >
+              <input type="range" id="opacity" value="0.3" min="0.1" max="0.8" step="0.05" />
+              <div class="range-info">Диапазон: 0.1-0.8</div>
+            </div>
+            
+            <div class="parameter">
+              <label for="transformOriginX"
+                >Transform Origin X: <span id="transformOriginX-value">50</span></label
+              >
+              <input
+                type="range"
+                id="transformOriginX"
+                value="50"
+                min="0"
+                max="100"
+                step="5"
+              />
+              <div class="range-info">Диапазон: 0-100%</div>
+            </div>
+
+            <div class="parameter">
+              <label for="transformOriginY"
+                >Transform Origin Y: <span id="transformOriginY-value">50</span></label
+              >
+              <input
+                type="range"
+                id="transformOriginY"
+                value="50"
+                min="0"
+                max="100"
+                step="5"
+              />
+              <div class="range-info">Диапазон: 0-100%</div>
+            </div>
+          </div>
+
+          <!-- Выбор свойств анимации -->
+          <h4 style="margin-bottom: 15px; margin-top: 25px">☑️ Свойства анимации</h4>
+          <div class="checkbox-grid">
+            <div class="checkbox-group">
+              <h5>🔄 Повороты</h5>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-rotateX" checked>
+                <label for="enable-rotateX">RotateX</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-rotateY" checked>
+                <label for="enable-rotateY">RotateY</label>
+              </div>
+            </div>
+            <div class="checkbox-group">
+              <h5>📍 Перемещения</h5>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-translateX" checked>
+                <label for="enable-translateX">TranslateX</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-translateY" checked>
+                <label for="enable-translateY">TranslateY</label>
+              </div>
+            </div>
+            <div class="checkbox-group">
+              <h5>📏 Масштаб / Наклон</h5>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-scaleX">
+                <label for="enable-scaleX">ScaleX</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-scaleY">
+                <label for="enable-scaleY">ScaleY</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-skewX">
+                <label for="enable-skewX">SkewX</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-skewY">
+                <label for="enable-skewY">SkewY</label>
+              </div>
+            </div>
+            <div class="checkbox-group">
+              <h5>🎨 Эффекты</h5>
+              <div class="checkbox-item">
+                <input type="checkbox" id="enable-opacity">
+                <label for="enable-opacity">Opacity</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Правая панель: Вывод кода -->
+        <div class="right-panel">
+          <h3>Сгенерированный код</h3>
+
+          <div class="output-section">
+            <div class="tabs">
+              <button class="tab active" data-tab="css">CSS @keyframes</button>
+              <button class="tab" data-tab="js">JavaScript Keyframes</button>
+            </div>
+
+            <div class="tab-content active" id="css-tab">
+              <button class="copy-btn" onclick="copyToClipboard('css-output')">
+                📋 Копировать CSS
+              </button>
+              <pre class="code-output" id="css-output">
+/* Нажмите "Генерировать" для создания CSS keyframes */</pre
+              >
+            </div>
+
+            <div class="tab-content" id="js-tab">
+              <button class="copy-btn" onclick="copyToClipboard('js-output')">
+                📋 Копировать JavaScript
+              </button>
+              <pre class="code-output" id="js-output">
+// Нажмите "Генерировать" для создания JavaScript keyframes</pre
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Динамические стили для анимации -->
+    <style id="dynamicStyles"></style>
+
+    <script src="./animation-generator.js"></script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
